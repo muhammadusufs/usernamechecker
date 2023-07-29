@@ -4,6 +4,7 @@ from utils import send_message
 from decouple import config
 from pyrogram.errors.exceptions.flood_420 import FloodWait
 from pyrogram.errors.exceptions.bad_request_400 import UsernameOccupied
+from pyrogram.errors.exceptions.not_acceptable_406 import UserRestricted
 
 import time
 
@@ -24,8 +25,11 @@ async def main():
         free_usernames = get_free_usernames()
 
         if len(free_usernames) > 0:
-            chan = await app.create_channel(f"test {i}", "test 123")
-            channel_created = True
+            try:
+                chan = await app.create_channel(f"test {i}", "test 123")
+                channel_created = True
+            except UserRestricted:
+                await send_message(bot_token, user_id, "Ushbu telegram akkaunti orqali kanal ochish bloklangan")
 
         while True:
 
