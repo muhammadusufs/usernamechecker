@@ -8,7 +8,7 @@ from pyrogram.errors.exceptions.not_acceptable_406 import UserRestricted
 
 import time
 
-api_id = config("API_ID") 
+api_id = config("API_ID")
 api_hash = config("API_HASH")
 bot_token = config("BOT_TOKEN")
 user_id = config("USER_ID")
@@ -16,7 +16,7 @@ request_sleep_time = config("SLEEP_TIME_EACH_REQUEST")
 loop_sleep_time = config("SLEEP_TIME_EACH_LOOP")
 
 
-app = Client("my_account", api_id=api_id,api_hash=api_hash)
+app = Client("my_account", api_id=api_id, api_hash=api_hash)
 
 
 async def main():
@@ -30,6 +30,8 @@ async def main():
                 channel_created = True
             except UserRestricted:
                 await send_message(bot_token, user_id, "Ushbu telegram akkaunti orqali kanal ochish bloklangan")
+                channel_created = False
+
 
         while True:
 
@@ -38,8 +40,12 @@ async def main():
 
                 for username in usernames:
                     if channel_created == False:
-                        chan = await app.create_channel(f"test {i}", "test 123")
-                        channel_created = True
+                        try:
+                            chan = await app.create_channel(f"test {i}", "test 123")
+                            channel_created = True 
+                        except UserRestricted:
+                            await send_message(bot_token, user_id, "Ushbu telegram akkaunti orqali kanal ochish bloklangan")
+                            channel_created = False
 
                     try:
                         await app.set_chat_username(chan.id, username)
