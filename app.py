@@ -31,6 +31,8 @@ async def main():
             except UserRestricted:
                 await send_message(bot_token, user_id, "Ushbu telegram akkaunti orqali kanal ochish bloklangan")
                 channel_created = False
+        else:
+            channel_created = False
 
 
         while True:
@@ -60,7 +62,7 @@ async def main():
 
                         except FloodWait:
                             print("Vaqtinchalik telegram limit qo'yildi")
-                            print(FloodWait)
+                            print(FloodWait.MESSAGE)
 
                     i += 1
                     time.sleep(int(request_sleep_time))
