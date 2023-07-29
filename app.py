@@ -47,19 +47,20 @@ async def main():
                             await send_message(bot_token, user_id, "Ushbu telegram akkaunti orqali kanal ochish bloklangan")
                             channel_created = False
 
-                    try:
-                        await app.set_chat_username(chan.id, username)
-                        response = await send_message(bot_token, user_id, f"@{username} uchun kanal ochildi")
-                        update_username_status(username, 1)
-                        channel_created = False
+                    if channel_created:
+                        try:
+                            await app.set_chat_username(chan.id, username)
+                            response = await send_message(bot_token, user_id, f"@{username} uchun kanal ochildi")
+                            update_username_status(username, 1)
+                            channel_created = False
 
-                    except UsernameOccupied:
-                        update_username_status(username, 0)
-                        channel_created = True
+                        except UsernameOccupied:
+                            update_username_status(username, 0)
+                            channel_created = True
 
-                    except FloodWait:
-                        print("Vaqtinchalik telegram limit qo'yildi")
-                        print(FloodWait)
+                        except FloodWait:
+                            print("Vaqtinchalik telegram limit qo'yildi")
+                            print(FloodWait)
 
                     i += 1
                     time.sleep(int(request_sleep_time))
