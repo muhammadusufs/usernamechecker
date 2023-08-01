@@ -45,7 +45,7 @@ async def main():
                                     if admin:
                                             await send_message(bot_token, admin, f"@{username} uchun kanal ochildi")
                             update_username_status(username, 1)
-                        
+                            time.sleep(130)                        
                         except FloodWait as e:
                             for admin in user_ids.split(','):
                                 if admin:
