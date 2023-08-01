@@ -1,1 +1,18 @@
-[]
+[
+  {
+    "username": "fullstack_python",
+    "is_free": 0
+  },
+  {
+    "username": "fullstack_python1",
+    "is_free": 0
+  },
+  {
+    "username": "fullstack_python2",
+    "is_free": 1
+  },
+  {
+    "username": "fullstack_python3",
+    "is_free": 1
+  }
+]
