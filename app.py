@@ -29,7 +29,9 @@ async def main():
                 chan = await app.create_channel(f"test {i}", "test 123")
                 channel_created = True
             except UserRestricted:
-                await send_message(bot_token, user_id, "Ushbu telegram akkaunti orqali kanal ochish bloklangan")
+                for admin in user_ids.split(','):
+                    if admin:
+                        await send_message(bot_token, admin, "Ushbu telegram akkaunti orqali kanal ochish bloklangan")
                 channel_created = False
         else:
             channel_created = False
@@ -46,13 +48,17 @@ async def main():
                             chan = await app.create_channel(f"test {i}", "test 123")
                             channel_created = True 
                         except UserRestricted:
-                            await send_message(bot_token, user_id, "Ushbu telegram akkaunti orqali kanal ochish bloklangan")
+                            for admin in user_ids.split(','):
+                                if admin:
+                                        await send_message(bot_token, admin, "Ushbu telegram akkaunti orqali kanal ochish bloklangan")
                             channel_created = False
 
                     if channel_created:
                         try:
                             await app.set_chat_username(chan.id, username)
-                            response = await send_message(bot_token, user_id, f"@{username} uchun kanal ochildi")
+                            for admin in user_ids.split(','):
+                                if admin:
+                                        response = await send_message(bot_token, admin, f"@{username} uchun kanal ochildi")
                             update_username_status(username, 1)
                             channel_created = False
 
