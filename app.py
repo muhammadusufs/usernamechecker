@@ -61,8 +61,8 @@ async def main():
 
                         
 
-                    time.sleep(int(request_sleep_time))
-            time.sleep(int(loop_sleep_time))
+                    time.sleep(float(request_sleep_time))
+            time.sleep(float(loop_sleep_time))
 
 
 app.run(main())
