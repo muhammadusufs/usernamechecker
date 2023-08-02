@@ -33,7 +33,14 @@ async def send_usernames(message: types.Message):
                 status = "Qabul qilingan"
 
             usernames_list += f"@{username['username']} - {status} \n"
-        await message.answer(usernames_list)
+        
+        usernames_list = usernames_list.split("\n")
+        chunk_size = 10
+        chunks = [usernames_list[i:i + chunk_size] for i in range(0, len(usernames_list), chunk_size)]
+
+        for chunk in chunks:
+            await message.answer("\n".join(chunk))
+
     else:
         await message.answer("Usernamelar mavjud emas!")
 
@@ -42,11 +49,21 @@ async def send_usernames(message: types.Message):
 async def echo(message: types.Message):
 
     usernames = extract_usernames(message.text)
-    usernames_list = "Qabul qilindi ... \n\n"
+    header = "Qabul qilindi"
     for username in usernames:
         usernames_list += f"@{username} \n"
         insert_username(username, 0)
-    await message.answer(usernames_list)
+
+    usernames_list = usernames_list.split("\n")
+    chunk_size = 10
+    chunks = [usernames_list[i:i + chunk_size] for i in range(0, len(usernames_list), chunk_size)]
+
+    message.answer(header)
+
+    for chunk in chunks:
+        await message.answer("\n".join(chunk))
+
+
 
 
 if __name__ == '__main__':

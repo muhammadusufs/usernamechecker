@@ -50,11 +50,14 @@ async def main():
                             for admin in user_ids.split(','):
                                 if admin:
                                     await send_message(bot_token, admin, f"Telegram {e.value} soniya limit o'rnatdi.")
-                                    print("Vaqtinchalik telegram limit qo'yildi")
+
+                            time.sleep(130)
 
                         except ChannelsAdminPublicTooMuch:
-                            await send_message(bot_token, admin, f"Ushbu akkauntda juda ko'p kanallar mavjud.")
-                        
+                            for admin in user_ids.split(','):
+                                if admin:
+                                    await send_message(bot_token, admin, f"Ushbu akkauntda juda ko'p kanallar mavjud.")
+                            time.sleep(130)
                     else:
                         pass
                              
