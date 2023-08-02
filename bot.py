@@ -27,8 +27,10 @@ async def send_usernames(message: types.Message):
     if len(usernames) > 0:
         await message.answer("Tayyorlarmoqda ...")
         for username in usernames:
-            if username['is_free']:
+            if username['is_free'] == 1:
                 status = "Kanal ochilgan"
+            elif username['is_free'] == 2:
+                status = "Sotilgan"
             else:
                 status = "Qabul qilingan"
 
