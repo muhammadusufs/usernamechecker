@@ -50,6 +50,7 @@ async def echo(message: types.Message):
 
     usernames = extract_usernames(message.text)
     header = "Qabul qilindi"
+    usernames_list = ""
     for username in usernames:
         usernames_list += f"@{username} \n"
         insert_username(username, 0)
@@ -58,7 +59,7 @@ async def echo(message: types.Message):
     chunk_size = 100
     chunks = [usernames_list[i:i + chunk_size] for i in range(0, len(usernames_list), chunk_size)]
 
-    message.answer(header)
+    await message.answer(header)
 
     for chunk in chunks:
         await message.answer("\n".join(chunk))
