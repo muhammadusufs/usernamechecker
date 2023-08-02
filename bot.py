@@ -55,7 +55,7 @@ async def echo(message: types.Message):
         insert_username(username, 0)
 
     usernames_list = usernames_list.split("\n")
-    chunk_size = 10
+    chunk_size = 100
     chunks = [usernames_list[i:i + chunk_size] for i in range(0, len(usernames_list), chunk_size)]
 
     message.answer(header)
