@@ -58,6 +58,12 @@ async def main():
                                 if admin:
                                     await send_message(bot_token, admin, f"Ushbu akkauntda juda ko'p kanallar mavjud.")
                             time.sleep(130)
+                        except Exeption as e:
+                            for admin in user_ids.split(','):
+                                if admin:
+                                    await send_message(bot_token, admin, e)
+
+                            time.sleep(130)
                     else:
                         pass
                              
