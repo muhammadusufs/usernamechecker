@@ -37,7 +37,7 @@ async def send_usernames(message: types.Message):
             usernames_list += f"@{username['username']} - {status} \n"
         
         usernames_list = usernames_list.split("\n")
-        chunk_size = 10
+        chunk_size = 100
         chunks = [usernames_list[i:i + chunk_size] for i in range(0, len(usernames_list), chunk_size)]
 
         for chunk in chunks:

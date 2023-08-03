@@ -17,20 +17,21 @@ loop_sleep_time = config("SLEEP_TIME_EACH_LOOP")
 
 app = Client("my_account", api_id=api_id, api_hash=api_hash)
 
+
 async def check_username(username_to_check):
     try:
         chat = await app.get_chat(username_to_check)
         return True
     except UsernameNotOccupied:
         return False
-    
+
     except:
         return True
 
 
 async def main():
     async with app:
-
+        await send_message("Bot ishga tushdi")
         while True:
             usernames = get_free_usernames()
             if len(usernames) > 0:
@@ -45,7 +46,7 @@ async def main():
                             await send_message(f"@{username} uchun kanal ochildi")
 
                             update_username_status(username, 1)
-                            time.sleep(130)    
+                            time.sleep(130)
 
                         except FloodWait as e:
                             await send_message(f"Telegram {e.value} soniya limit o'rnatdi.")
@@ -58,16 +59,18 @@ async def main():
                         except UsernameInvalid:
                             await send_message(f"@{username} sotilgan.")
                             update_username_status(username, 2)
-                            
+
                             try:
                                 await app.delete_channel(chan.id)
                             except:
                                 await send_message(f"{chan.title} kanalni o'chirib bo'lmadi.")
-                            
+
+                            time.sleep(130)
+                        except Exception as e:
+                            await send_message(e)
                             time.sleep(130)
                     else:
                         pass
-                             
 
                     time.sleep(float(request_sleep_time))
             time.sleep(float(loop_sleep_time))

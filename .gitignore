@@ -1,3 +1,6 @@
 .env
 env
 __pycache__/
+my_account.session
+my_account.session-journal
+.vscode
