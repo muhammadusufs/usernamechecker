@@ -19,13 +19,20 @@ app = Client("my_account", api_id=api_id, api_hash=api_hash)
 
 
 async def check_username(username_to_check):
+    print(username_to_check)
     try:
         chat = await app.get_chat(username_to_check)
+        print('True')
         return True
     except UsernameNotOccupied:
+        print('False')
         return False
-
-    except:
+    except FloodWait as e:
+        print('sleep', e.value)
+        time.sleep(int(e.value))
+    except Exception as e:
+        print(e)
+        await send_message(e)
         return True
 
 
@@ -38,7 +45,6 @@ async def main():
                 for username in usernames:
                     chan = False
                     res = await check_username(username_to_check=username)
-
                     if res == False:
                         try:
                             chan = await app.create_channel(f"@{username}", "test 123")
